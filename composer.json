@@ -1,0 +1,12 @@
+{
+    "name": "math/geometry",
+    "description": "A php composer library of geometry operating",
+    "type": "php library",
+    "authors": [
+        {
+            "name": "Guojz",
+            "email": "web_scott@163.com"
+        }
+    ],
+    "require": {}
+}
