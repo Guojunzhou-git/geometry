@@ -19,6 +19,10 @@ class Point{
         return $this->x*$line->a+$this->y*$line->b+$line->c == 0;
     }
 
+    public function isInEdge(Edge $edge){
+        return $this->isInLine($edge->line) && $this->x >= $edge->xrange[0] && $this->x <= $edge->xrange[1];
+    }
+
     public function isSameWithPoint(Point $p){
         return ($p->x == $this->x && $p->y == $this->y);
     }
