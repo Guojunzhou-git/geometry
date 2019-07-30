@@ -15,6 +15,10 @@ class Point{
         return $this->_uniqueLable;
     }
 
+    public function isInLine(Line $line){
+        return $this->x*$line->a+$this->y*$line->b+$line->c == 0;
+    }
+
     public function isSameWithPoint(Point $p){
         return ($p->x == $this->x && $p->y == $this->y);
     }
