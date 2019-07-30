@@ -10,3 +10,6 @@ $endpoints = [
 ];
 $polygon = Polygon::fromEndpoints($endpoints);
 print_r($polygon->__toString());
+var_dump($polygon->isPointInPolygon(new Point(0.5, 0.5)));
+var_dump($polygon->isPointInPolygon(new Point(0.5, 0)));
+var_dump($polygon->isPointInPolygon(new Point(1, 0.999999999)));

@@ -41,8 +41,36 @@ class Polygon{
         return new self($edges);
     }
 
-    public function isPointIn(Point $p){
-
+    public function isPointInPolygon(Point $p){
+        $isPointOnPolygonEdges = false;
+        foreach ($this->edges as $edge) {
+            if($edge->isPointOnEdge($p)){
+                $isPointOnPolygonEdges = true;
+                break;
+            }
+        }
+        if(!$isPointOnPolygonEdges){
+            $pointHorizontalLine = Line::fromTwoPoint($p, new Point($p->x+1, $p->y));
+            $intersections = [];
+            foreach ($this->edges as $edge) {
+                $intersection = $edge->intersectWithLine($pointHorizontalLine);
+                if($intersection instanceof Point){
+                    array_push($intersections, $intersection);
+                }
+            }
+            $leftIntersectionNumber = 0;
+            $rightIntersectionNumber = 0;
+            foreach ($intersections as $intersection) {
+                if($intersection->x < $p->x){
+                    $leftIntersectionNumber++;
+                }
+                if($intersection->x > $p->x){
+                    $rightIntersectionNumber++;
+                }
+            }
+            return ($leftIntersectionNumber%2==1 && $rightIntersectionNumber%2==1);
+        }
+        return true;
     }
 
     public function __toString(){

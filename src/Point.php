@@ -18,4 +18,8 @@ class Point{
     public function isSameWithPoint(Point $p){
         return ($p->x == $this->x && $p->y == $this->y);
     }
+
+    public function __toString(){
+        return 'Point('.$this->x.','.$this->y.')';
+    }
 }
