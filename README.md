@@ -34,3 +34,8 @@ A php composer library of geometry operating
 - Raise a GeometryException with code=11002 when this edge is a part of line
 - Return a boolean `false` when edge is parallel with line
 - Reruen the intersection `Point` when edge intersects with line in its range
+### geometry\Polygon
+#### 1. Polygon Polygon::fromEndpoints(Point[] points);
+- Give the clockwise endpoints of polygon, return an instance of `Polygon`
+#### 2. boolean Polygon::isPointInPolygon(Point p)
+- Return whether the target Point in Polygon
