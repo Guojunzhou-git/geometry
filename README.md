@@ -23,3 +23,14 @@ A php composer library of geometry operating
 - Raise a GeometryException with code=11002 when two lines are the same
 - Return a boolean `false` when two lines are parallel
 - Reruen the intersection `Point` when two line intersects
+### geometry\Edge
+#### 1. Edge Edge::__constrct(Line line, xrange=[0,0], yrange=[0,0]);
+- Give a `Line` and the ranges of x and y, return an instance of Edge
+#### 2. Edge Edge::fromTwoEndpoint(Point p1, Point p2);
+- Give two points, return the `Edge` instance with endpoint given
+#### 3. boolea Edge::isPointOnEdge(Point p)
+- Return whether the given point on this `Edge`
+#### 4. GeometryException/boolean/Point Edge::intersectWithLine(Line line)
+- Raise a GeometryException with code=11002 when this edge is a part of line
+- Return a boolean `false` when edge is parallel with line
+- Reruen the intersection `Point` when edge intersects with line in its range
