@@ -14,7 +14,7 @@ A php composer library of geometry operating
 - Return whethis this point has same x and same y with the target point
 ### geometry\Line
 #### 1. Line Line::__construct(a, b, c);
-Give the parameters of Line formula `Ax+By+C=0`, return a Line instance
+- Give the parameters of Line formula `Ax+By+C=0`, return a Line instance
 #### 2. Line Line::fromTwoPoint(Ponit p1, Point p2);
 - Return a Line instance by providing two different point
 #### 3. boolean Line::isPointOnLine(Point p);
