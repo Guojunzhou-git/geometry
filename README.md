@@ -1,7 +1,7 @@
 # geometry
 A php composer library of geometry operating. Bug Report:<br/>
-- 1. https://github.com/Guojunzhou-git/geometry/issues
-- 2. web_scott@163.com
+- https://github.com/Guojunzhou-git/geometry/issues
+- php20141104@163.com
 
 ### geometry\Point
 #### 1. Point Point::__construct(x, y);
