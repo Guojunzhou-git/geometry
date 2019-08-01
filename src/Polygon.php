@@ -5,6 +5,7 @@ class Polygon{
     public $edges;
     public $isConvex;
     public $edgeNumber;
+    const INTERSETION_ERROR_RANGE = 0.00000001;
 
     private function __construct($edges=[]){
         $this->edges = $edges;
@@ -21,15 +22,19 @@ class Polygon{
                 if(
                     $intersection !== false &&
                     !(
-                        $intersection->x == $this->edges[$i]->xrange[0] ||
-                        $intersection->x == $this->edges[$i]->xrange[1] ||
-                        $intersection->x == $this->edges[$j]->xrange[0] ||
-                        $intersection->x == $this->edges[$j]->xrange[1]
+                        abs($intersection->x-$this->edges[$i]->xrange[0]) < self::INTERSETION_ERROR_RANGE ||
+                        abs($intersection->x-$this->edges[$i]->xrange[1]) < self::INTERSETION_ERROR_RANGE ||
+                        abs($intersection->x-$this->edges[$j]->xrange[0]) < self::INTERSETION_ERROR_RANGE ||
+                        abs($intersection->x-$this->edges[$j]->xrange[1]) < self::INTERSETION_ERROR_RANGE
                     )
                 ){
+                    // echo $this->edges[$i]->__toString().' <===> '.$this->edges[$j]->__toString().' <===> ('.$intersection->x.','.$intersection->y.')'.PHP_EOL;
                     $isConvex = false;
                     break;
                 }
+            }
+            if(false === $isConvex){
+                break;
             }
         }
         return $isConvex;
