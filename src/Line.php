@@ -15,6 +15,7 @@ class Line{
     }
 
     public static function fromTwoPoint(Point $x, Point $y){
+        // TODO: two different point
         $a = $y->y - $x->y;
         $b = $x->x - $y->x;
         $c = $y->x*$x->y - $x->x*$y->y;

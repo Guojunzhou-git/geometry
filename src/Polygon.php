@@ -4,14 +4,35 @@ namespace geometry;
 class Polygon{
     public $edges;
     public $isConvex;
+    public $edgeNumber;
 
     private function __construct($edges=[]){
         $this->edges = $edges;
+        $this->edgeNumber = count($this->edges);
         $this->isConvex = $this->_isConvexPolygon();
     }
 
     private function _isConvexPolygon(){
-        return true;
+        $isConvex = true;
+        // convex-polygon's every two edges intersects on it's endpoints or out of itself
+        for($i=0; $i<$this->edgeNumber-1; $i++){
+            for($j=$i+1; $j<$this->edgeNumber; $j++){
+                $intersection = $this->edges[$i]->intersectWithEdge($this->edges[$j]);
+                if(
+                    $intersection !== false &&
+                    !(
+                        $intersection->x == $this->edges[$i]->xrange[0] ||
+                        $intersection->x == $this->edges[$i]->xrange[1] ||
+                        $intersection->x == $this->edges[$j]->xrange[0] ||
+                        $intersection->x == $this->edges[$j]->xrange[1]
+                    )
+                ){
+                    $isConvex = false;
+                    break;
+                }
+            }
+        }
+        return $isConvex;
     }
 
     public static function fromEndpoints($points=[]){
@@ -41,19 +62,27 @@ class Polygon{
         return new self($edges);
     }
 
-    public function isPointInPolygon(Point $p){
+    public function isPointInPolygon(Point $p, $onEdge=true){
         $isPointOnPolygonEdges = false;
-        foreach ($this->edges as $edge) {
-            if($edge->isPointOnEdge($p)){
-                $isPointOnPolygonEdges = true;
-                break;
+        if($onEdge){
+            foreach ($this->edges as $edge) {
+                if($edge->isPointOnEdge($p)){
+                    $isPointOnPolygonEdges = true;
+                    break;
+                }
             }
         }
         if(!$isPointOnPolygonEdges){
             $pointHorizontalLine = Line::fromTwoPoint($p, new Point($p->x+1, $p->y));
             $intersections = [];
             foreach ($this->edges as $edge) {
-                $intersection = $edge->intersectWithLine($pointHorizontalLine);
+                try{
+                    $intersection = $edge->intersectWithLine($pointHorizontalLine);
+                }catch (GeometryException $ge){
+                    if($ge->getCode() == GeometryException::LINE_INTERSECT_WITH_LINE_SAME_LINE_ERROR){
+                        return $onEdge;
+                    }
+                }
                 if($intersection instanceof Point){
                     array_push($intersections, $intersection);
                 }

@@ -49,6 +49,17 @@ class Edge{
         return false;
     }
 
+    public function intersectWithEdge(Edge $edge){
+        $point = $this->line->intersectWithLine($edge->line);
+        if($point !== false){
+            return (
+                $point->x >= $this->xrange[0] && $point->x <= $this->xrange[1] &&
+                $point->x >= $edge->xrange[0] && $point->x <= $edge->xrange[1]
+            ) ? $point : false;
+        }
+        return false;
+    }
+
     public function __toString(){
         $lineString = $this->line->__toString();
         return $lineString.' x=['.$this->xrange[0].','.$this->xrange[1].'],y=['.$this->yrange[0].','.$this->yrange[1].']';
